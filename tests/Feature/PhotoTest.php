@@ -71,4 +71,33 @@ class PhotoTest extends TestCase
         $response->assertViewIs('photos.show');
         $response->assertViewHas('photo', $photo);
     }
+
+    public function test_if_a_photo_can_be_updated()
+    {
+        $this->withoutExceptionHandling();
+
+        $photo = Photo::factory()->create();
+
+        $response = $this->put('/photos/' . $photo->id, [
+            'title' => 'La Alhambra sunset',
+            'description' => 'Beatiful sunset',
+            'photo' => 'Image of sunset',
+            'continent' => 'Europe',
+            'country' => 'Spain',
+            'date' => 1987 - 04 - 24,
+        ]);
+
+        $this->assertCount(1, Photo::all());
+
+        $photo = $photo->fresh();
+
+        $this->assertEquals($photo->title, 'La Alhambra sunset');
+        $this->assertEquals($photo->description, 'Beatiful sunset');
+        $this->assertEquals($photo->photo, 'Image of sunset');
+        $this->assertEquals($photo->continent, 'Europe');
+        $this->assertEquals($photo->country, 'Spain');
+        $this->assertEquals($photo->date, 1987 - 04 - 24);
+
+        $response->assertRedirect('/photos/' . $photo->id);
+    }
 }

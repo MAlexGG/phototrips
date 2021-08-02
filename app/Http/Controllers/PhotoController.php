@@ -80,9 +80,19 @@ class PhotoController extends Controller
      * @param  \App\Models\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Photo $photo)
+    public function update(Photo $photo)
     {
-        //
+        $data = request()->validate([
+            'title' => '',
+            'description' => '',
+            'photo' => '',
+            'continent' => '',
+            'country' => '',
+            'date' => '',
+        ]);
+
+        $photo->update($data);
+        return redirect('/photos/' . $photo->id);
     }
 
     /**
