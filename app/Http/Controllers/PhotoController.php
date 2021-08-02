@@ -39,7 +39,7 @@ class PhotoController extends Controller
     {
         // $user = Auth::user();
 
-        Photo::create([
+        $photo = Photo::create([
             'title' => $request->title,
             'description' => $request->description,
             'photo' => $request->photo,
@@ -48,7 +48,7 @@ class PhotoController extends Controller
             'date' => $request->date,
         ]);
 
-        // return redirect()->route('home');
+        return redirect('/photos/' . $photo->id);
     }
 
     /**
@@ -59,7 +59,7 @@ class PhotoController extends Controller
      */
     public function show(Photo $photo)
     {
-        //
+        return view('photos.show', compact('photo'));
     }
 
     /**

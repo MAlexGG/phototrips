@@ -22,8 +22,9 @@ use Illuminate\Support\Facades\Auth;
 // Auth::routes();
 
 Route::get('/photos', [PhotoController::class, 'index'])->name('photos');
-Route::get('/create', [PhotoController::class, 'create'])->name('create');
-Route::post('/store', [PhotoController::class, 'store'])->name('store');
+Route::get('/photos/create', [PhotoController::class, 'create'])->name('create');
+Route::post('/photos/store', [PhotoController::class, 'store'])->name('store');
+Route::get('/photos/{photo}', [PhotoController::class, 'show'])->name('show');
 
 // Auth::routes();
 

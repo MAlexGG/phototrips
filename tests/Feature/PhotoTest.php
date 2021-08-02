@@ -20,7 +20,7 @@ class PhotoTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('/store', [
+        $response = $this->post('/photos/store', [
             'title' => 'La Alhambra sunset',
             'description' => 'Beatiful sunset',
             'photo' => 'Image of sunset',
@@ -29,7 +29,6 @@ class PhotoTest extends TestCase
             'date' => 1987-04-24,
         ]);
 
-        $response->assertOk();
         $this->assertCount(1, Photo::all());
 
         $photo = Photo::first();
@@ -39,6 +38,8 @@ class PhotoTest extends TestCase
         $this->assertEquals($photo->continent, 'Europe');
         $this->assertEquals($photo->country, 'Spain');
         $this->assertEquals($photo->date, 1987 - 04 - 24);
+
+        $response->assertRedirect('/photos/' . $photo->id);
     }
 
     public function test_if_photos_can_be_listed()
@@ -54,5 +55,20 @@ class PhotoTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('photos.index');
         $response->assertViewHas('photos', $photos);
+    }
+
+    public function test_if_a_photo_can_be_shown()
+    {
+        $this->withoutExceptionHandling();
+
+        $photo = Photo::factory()->create();
+
+        $response = $this->get('/photos/' . $photo->id);
+
+        $photo = Photo::first();
+
+        $response->assertOk();
+        $response->assertViewIs('photos.show');
+        $response->assertViewHas('photo', $photo);
     }
 }
