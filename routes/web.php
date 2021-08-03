@@ -26,7 +26,7 @@ Route::get('/photos/create', [PhotoController::class, 'create'])->name('create')
 Route::post('/photos/store', [PhotoController::class, 'store'])->name('store');
 Route::get('/photos/{photo}', [PhotoController::class, 'show'])->name('show');
 Route::put('/photos/{photo}', [PhotoController::class, 'update'])->name('update');
-
+Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('delete');
 
 // Auth::routes();
 

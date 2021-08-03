@@ -35,18 +35,20 @@ class PhotoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         // $user = Auth::user();
 
-        $photo = Photo::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'photo' => $request->photo,
-            'continent' => $request->continent,
-            'country' => $request->country,
-            'date' => $request->date,
+        $data = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'photo' => 'required',
+            'continent' => 'required',
+            'country' => 'required',
+            'date' => 'required',
         ]);
+
+        $photo = Photo::create($data);
 
         return redirect('/photos/' . $photo->id);
     }
@@ -83,12 +85,12 @@ class PhotoController extends Controller
     public function update(Photo $photo)
     {
         $data = request()->validate([
-            'title' => '',
-            'description' => '',
-            'photo' => '',
-            'continent' => '',
-            'country' => '',
-            'date' => '',
+            'title' => 'required',
+            'description' => 'required',
+            'photo' => 'required',
+            'continent' => 'required',
+            'country' => 'required',
+            'date' => 'required',
         ]);
 
         $photo->update($data);
@@ -103,6 +105,8 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
-        //
+        $photo->delete();
+
+        return redirect('/photos');
     }
 }
