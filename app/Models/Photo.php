@@ -17,4 +17,10 @@ class Photo extends Model
         'country',
         'date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

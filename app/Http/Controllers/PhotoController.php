@@ -26,6 +26,7 @@ class PhotoController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
         return view('photos.create');
     }
 
@@ -37,7 +38,7 @@ class PhotoController extends Controller
      */
     public function store()
     {
-        // $user = Auth::user();
+        
 
         $data = request()->validate([
             'title' => 'required',

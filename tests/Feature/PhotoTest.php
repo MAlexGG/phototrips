@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\Photo;
+use App\Models\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class PhotoTest extends TestCase
@@ -20,6 +22,8 @@ class PhotoTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        $this->actingAs(User::factory()->create());
+        
         $response = $this->post('/photos/store', [
             'title' => 'La Alhambra sunset',
             'description' => 'Beatiful sunset',
@@ -32,6 +36,7 @@ class PhotoTest extends TestCase
         $this->assertCount(1, Photo::all());
 
         $photo = Photo::first();
+
         $this->assertEquals($photo->title, 'La Alhambra sunset');
         $this->assertEquals($photo->description, 'Beatiful sunset');
         $this->assertEquals($photo->photo, 'Image of sunset');
@@ -44,6 +49,9 @@ class PhotoTest extends TestCase
 
     public function test_if_title_is_required()
     {
+
+        $this->actingAs(User::factory()->create());        
+
         $response = $this->post('/photos/store', [
             'title' => '',
             'description' => 'Beatiful sunset',
@@ -89,7 +97,9 @@ class PhotoTest extends TestCase
     public function test_if_a_photo_can_go_to_edit_form()
     {
         $this->withoutExceptionHandling();
-        
+
+        $this->actingAs(User::factory()->create());
+
         $photo = Photo::factory()->create();
 
         $response = $this->get('/photos/edit/' . $photo->id);
@@ -104,6 +114,8 @@ class PhotoTest extends TestCase
     public function test_if_a_photo_can_be_updated()
     {
         $this->withoutExceptionHandling();
+
+        $this->actingAs(User::factory()->create());
 
         $photo = Photo::factory()->create();
 
@@ -133,6 +145,8 @@ class PhotoTest extends TestCase
     public function test_if_a_photo_can_be_deleted()
     {
         $this->withoutExceptionHandling();
+
+        $this->actingAs(User::factory()->create());
 
         $photo = Photo::factory()->create();
 

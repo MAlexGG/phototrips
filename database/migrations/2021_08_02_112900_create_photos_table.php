@@ -21,6 +21,7 @@ class CreatePhotosTable extends Migration
             $table->string('continent');
             $table->string('country');
             $table->dateTime('date');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -22,13 +22,13 @@ use Illuminate\Support\Facades\Auth;
 // Auth::routes();
 
 Route::get('/photos', [PhotoController::class, 'index'])->name('photos');
-Route::get('/photos/create', [PhotoController::class, 'create'])->name('create');
-Route::post('/photos/store', [PhotoController::class, 'store'])->name('store');
+Route::get('/photos/create', [PhotoController::class, 'create'])->name('create')->middleware('auth');
+Route::post('/photos/store', [PhotoController::class, 'store'])->name('store')->middleware('auth');
 Route::get('/photos/{photo}', [PhotoController::class, 'show'])->name('show');
-Route::get('/photos/edit/{photo}', [PhotoController::class, 'edit'])->name('edit');
-Route::put('/photos/{photo}', [PhotoController::class, 'update'])->name('update');
-Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('delete');
+Route::get('/photos/edit/{photo}', [PhotoController::class, 'edit'])->name('edit')->middleware('auth');
+Route::put('/photos/{photo}', [PhotoController::class, 'update'])->name('update')->middleware('auth');
+Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('delete')->middleware('auth');
 
-// Auth::routes();
+Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

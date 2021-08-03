@@ -28,23 +28,29 @@ class DatabaseSeeder extends Seeder
         ]);
         Photo::factory(2)->create([
             'continent' => 'Asia',
+            'user_id' => 1,
         ]);
         Photo::factory(2)->create([
             'continent' => 'America',
+            'user_id' => 1,
         ]);
         Photo::factory(2)->create([
             'continent' => 'Europe',
             'country' => 'Spain',
+            'user_id' => 1,
         ]);
         Photo::factory(2)->create([
             'continent' => 'Europa',
             'country' => 'Netherlands',
+            'user_id' => 1,
         ]);
         Photo::factory(2)->create([
             'continent' => 'Oceania',
+            'user_id' => 1,
         ]);
         Photo::factory(2)->create([
             'continent' => 'Africa',
+            'user_id' => 1,
         ]);
     }
 }
