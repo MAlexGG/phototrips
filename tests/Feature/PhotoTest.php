@@ -66,9 +66,9 @@ class PhotoTest extends TestCase
 
         $photos = Photo::all();
 
-        $response->assertOk();
-        $response->assertViewIs('photos.index');
-        $response->assertViewHas('photos', $photos);
+        $response->assertOk()
+        ->assertViewIs('photos.index')
+        ->assertViewHas('photos', $photos);
     }
 
     public function test_if_a_photo_can_be_shown()
@@ -81,9 +81,24 @@ class PhotoTest extends TestCase
 
         $photo = Photo::first();
 
-        $response->assertOk();
-        $response->assertViewIs('photos.show');
-        $response->assertViewHas('photo', $photo);
+        $response->assertOk()
+        ->assertViewIs('photos.show')
+        ->assertViewHas('photo', $photo);
+    }
+
+    public function test_if_a_photo_can_go_to_edit_form()
+    {
+        $this->withoutExceptionHandling();
+        
+        $photo = Photo::factory()->create();
+
+        $response = $this->get('/photos/edit/' . $photo->id);
+
+        $response->assertOk()
+        ->assertViewIs('photos.edit')
+        ->assertViewHas('photo', $photo);
+
+
     }
 
     public function test_if_a_photo_can_be_updated()
