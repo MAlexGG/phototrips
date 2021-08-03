@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Photo;
 use App\Models\User;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\IsAdmin;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,11 @@ class PhotoTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create([
+            'isAdmin' => 'true'
+        ]);
+        
+        $this->actingAs($user);
         
         $response = $this->post('/photos/store', [
             'title' => 'La Alhambra sunset',
@@ -50,7 +56,11 @@ class PhotoTest extends TestCase
     public function test_if_title_is_required()
     {
 
-        $this->actingAs(User::factory()->create());        
+        $user = User::factory()->create([
+            'isAdmin' => 'true'
+        ]);
+
+        $this->actingAs($user);
 
         $response = $this->post('/photos/store', [
             'title' => '',
@@ -98,7 +108,11 @@ class PhotoTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create([
+            'isAdmin' => 'true'
+        ]);
+
+        $this->actingAs($user);
 
         $photo = Photo::factory()->create();
 
@@ -115,7 +129,12 @@ class PhotoTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create([
+            'isAdmin' => 'true'
+        ]);
+
+        $this->actingAs($user);
+
 
         $photo = Photo::factory()->create();
 
@@ -146,7 +165,12 @@ class PhotoTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create([
+            'isAdmin' => 'true'
+        ]);
+
+        $this->actingAs($user);
+
 
         $photo = Photo::factory()->create();
 

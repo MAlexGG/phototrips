@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PhotoController;
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,12 +23,12 @@ use Illuminate\Support\Facades\Auth;
 // Auth::routes();
 
 Route::get('/photos', [PhotoController::class, 'index'])->name('photos');
-Route::get('/photos/create', [PhotoController::class, 'create'])->name('create')->middleware('auth');
-Route::post('/photos/store', [PhotoController::class, 'store'])->name('store')->middleware('auth');
+Route::get('/photos/create', [PhotoController::class, 'create'])->name('create')->middleware(IsAdmin::class);
+Route::post('/photos/store', [PhotoController::class, 'store'])->name('store')->middleware(IsAdmin::class);
 Route::get('/photos/{photo}', [PhotoController::class, 'show'])->name('show');
-Route::get('/photos/edit/{photo}', [PhotoController::class, 'edit'])->name('edit')->middleware('auth');
-Route::put('/photos/{photo}', [PhotoController::class, 'update'])->name('update')->middleware('auth');
-Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('delete')->middleware('auth');
+Route::get('/photos/edit/{photo}', [PhotoController::class, 'edit'])->name('edit')->middleware(IsAdmin::class);
+Route::put('/photos/{photo}', [PhotoController::class, 'update'])->name('update')->middleware(IsAdmin::class);
+Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('delete')->middleware(IsAdmin::class);
 
 Auth::routes();
 

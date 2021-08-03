@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'isAdmin',
     ];
 
     /**
@@ -44,5 +45,10 @@ class User extends Authenticatable
     public function photos()
     {
         return $this->hasMany(Photos::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->isAdmin; 
     }
 }

@@ -26,7 +26,6 @@ class PhotoController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
         return view('photos.create');
     }
 
