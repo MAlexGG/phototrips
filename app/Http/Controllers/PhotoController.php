@@ -38,8 +38,6 @@ class PhotoController extends Controller
      */
     public function store()
     {
-        
-
         $data = request()->validate([
             'title' => 'required',
             'description' => 'required',
